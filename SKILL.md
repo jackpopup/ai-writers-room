@@ -36,13 +36,15 @@ There is also a bonus role available on request:
 
 ## The Pipeline
 
-The writing process follows 7 phases. **Never skip the Review Gate** — the user must approve before drafting begins.
+The writing process follows 7 phases with **4 Human-in-the-Loop gates** where the user reviews saved .md files and makes decisions. Never auto-advance past any gate.
 
 ```
-Plan → Design → Review Gate → Do → Check → Polish → Act
-                    ↑                                 │
-                    └─── user approval required ──────┘
+Plan → Design → 🚦 Gate 1 (Direction) → Do → 🚦 Gate 2 (Draft Selection)
+                                                         ↓
+Act ← 🚦 Gate 4 (Headline) ← Polish ← 🚦 Gate 3 (Review) ← Check
 ```
+
+**Every gate saves .md files first, then asks the user.** The user reviews the files and decides before the pipeline continues.
 
 Optional final phase: **Localize** (translation/adaptation)
 
@@ -104,14 +106,20 @@ If the proposals from Phase 1 diverged significantly, present the user with 2 st
 
 ---
 
-### Phase 3: Review Gate (User Approval)
+### 🚦 Gate 1: Direction Approval (after Plan + Design)
 
-**This phase is MANDATORY. Never skip it.**
+**This gate is MANDATORY. Never skip it.**
 
-Present the user with a clear summary:
+**Step 1**: Save files
+- Write `direction-brief.md` (Plan output — synthesized proposals from all 4 agents)
+- Write `outline.md` (Design output — section-level structure)
+
+**Step 2**: Present summary and ask the user
 
 ```
-## Review Gate — Please Approve Before We Draft
+## 🚦 Gate 1 — Direction Approval
+
+📄 Saved: `direction-brief.md`, `outline.md`
 
 **Title**: [working title]
 **Audience**: [target]
@@ -123,10 +131,15 @@ Present the user with a clear summary:
 
 **Estimated length**: ~X words
 
-👉 Approve, modify, or redirect before we proceed to drafting.
+**Before we write 3 drafts, I'd like to check:**
+1. Does this direction feel right?
+2. Any angle or point you want to add/remove/emphasize?
+3. Is the tone what you had in mind?
+
+👉 Approve, modify, or redirect.
 ```
 
-**Do NOT proceed to Phase 4 until the user explicitly approves.**
+**Step 3**: If the user gives feedback, update the files and re-present. Do NOT proceed to Phase 4 until the user explicitly approves.
 
 ---
 
@@ -160,7 +173,43 @@ Write the full article. Include a compelling opening, smooth transitions, and a 
 Do NOT include meta-commentary about your writing process.
 ```
 
-**Output**: 3 complete drafts (A, B, C) presented clearly to the user.
+**Output**: 3 complete drafts saved as files.
+
+---
+
+### 🚦 Gate 2: Draft Selection (after Do)
+
+**This gate is MANDATORY. Never skip it.**
+
+**Step 1**: Save all 3 drafts as separate files
+- Write `draft-A.md` (Copywriter — witty/hook-driven)
+- Write `draft-B.md` (Producer — storytelling/emotional)
+- Write `draft-C.md` (Journalist — fact-driven/authoritative)
+
+**Step 2**: Present a brief comparison and ask the user to engage
+
+```
+## 🚦 Gate 2 — Draft Selection
+
+📄 Saved: `draft-A.md`, `draft-B.md`, `draft-C.md`
+
+| | Draft A (위트) | Draft B (서사) | Draft C (팩트) |
+|---|---|---|---|
+| Opening | [first sentence] | [first sentence] | [first sentence] |
+| Tone | Hook-driven, punchy | Emotional, narrative | Authoritative, evidence |
+| Word count | ~X | ~X | ~X |
+
+**Please review the 3 drafts and let me know:**
+1. Which draft(s) do you want to develop further? (one, two, or all three)
+2. Any parts from one draft you'd like to mix into another?
+3. Anything that feels off or missing in your preferred draft?
+
+👉 Pick your favorite(s), or tell me what to adjust.
+```
+
+**Step 3**: Proceed to Check only for the draft(s) the user selected. If the user picks one, Check and Polish focus on that single draft. If they pick all three, proceed as normal.
+
+**Do NOT proceed to Phase 5 until the user selects.**
 
 ---
 
@@ -219,7 +268,45 @@ Spawn 3 subagents **in parallel**:
    Provide specific, actionable feedback per draft.
    ```
 
-**Output**: Review report consolidating findings from all 3 reviewers, organized by draft.
+**Output**: Review report saved as file.
+
+---
+
+### 🚦 Gate 3: Revision Direction (after Check)
+
+**This gate is MANDATORY. Never skip it.**
+
+**Step 1**: Save the review report
+- Write `review-report.md` (consolidated fact-check + proofread + editorial review)
+
+**Step 2**: Present key findings and ask the user
+
+```
+## 🚦 Gate 3 — Review Results
+
+📄 Saved: `review-report.md`
+
+### Key Findings
+**Fact Check**: [X verified / Y flagged — list the most critical flags]
+**Proofreading**: [major issues summary]
+**Editorial**: [structural feedback summary]
+
+### Recommended Actions
+1. [Most impactful revision]
+2. [Second priority]
+3. [Nice-to-have]
+
+**Before I apply revisions and move to headlines:**
+1. Do you agree with these corrections?
+2. Any flagged item you want to keep as-is? (author's intent)
+3. Any additional changes you want while we're editing?
+
+👉 Approve revisions, override specific items, or add your own edits.
+```
+
+**Step 3**: Apply only the approved revisions. Save updated draft(s) with revisions applied before moving to Polish.
+
+**Do NOT proceed to Phase 6 until the user confirms revision direction.**
 
 ---
 
@@ -243,19 +330,29 @@ Judge by: rhythm, metaphor depth, reader curiosity, honesty to content.
 Do not clickbait. Do not oversimplify. Find the tension in the truth.
 ```
 
-**Output**: For each draft — 3 headline options + lead sentence.
+**Output**: Headline options presented to user.
 
 ---
 
-### Phase 7: Act (Final Decision)
+### 🚦 Gate 4: Headline & Final Selection (Polish + Act combined)
 
-**Goal**: Recommend the best version and let the user decide.
+**This gate is MANDATORY. Never skip it.**
 
-Present a comparison:
+**Step 1**: Present headline options per draft
 
 ```
-## Final Selection
+## 🚦 Gate 4 — Headline & Final Selection
 
+### Headlines per Draft
+**Draft [X]**:
+  1. "[headline option 1]"
+  2. "[headline option 2]"
+  3. "[headline option 3]"
+  Lead: [1-2 sentence hook]
+
+[Repeat for each draft still in play]
+
+### Comparison
 | Criteria | Draft A | Draft B | Draft C |
 |----------|---------|---------|---------|
 | Hook strength | ... | ... | ... |
@@ -264,14 +361,21 @@ Present a comparison:
 | Factual rigor | ... | ... | ... |
 | Readability | ... | ... | ... |
 
-**Recommendation**: [Draft X] because [reason]
+**My recommendation**: [Draft X] with headline #Y, because [reason]
 
-👉 Select your preferred version, or request a hybrid.
+**Your call:**
+1. Which draft?
+2. Which headline? (or write your own)
+3. Any final tweaks before I save the final version?
+
+👉 Select, customize, or request a hybrid.
 ```
 
-The user makes the final call. Apply any last edits they request.
+**Step 2**: Apply the user's choice and any final edits.
 
-**Output**: Final polished article.
+**Step 3**: Save `final.md` with the selected draft + chosen headline + all revisions applied.
+
+**Output**: Final polished article in `final.md`.
 
 ---
 
@@ -312,7 +416,11 @@ If the user requests translation, spawn translators **in parallel**:
 When the user provides a topic or says they want to write something:
 1. Confirm the topic and any constraints (audience, length, tone, deadline)
 2. Jump straight into **Phase 1: Plan** — spawn the 4 planning agents in parallel
-3. Proceed through phases sequentially, always hitting the Review Gate before drafting
+3. Proceed through phases sequentially, stopping at all 4 gates:
+   - 🚦 Gate 1: Direction approval (after Plan + Design)
+   - 🚦 Gate 2: Draft selection (after Do — user picks which draft to develop)
+   - 🚦 Gate 3: Revision direction (after Check — user approves/overrides corrections)
+   - 🚦 Gate 4: Headline & final selection (after Polish — user picks headline + draft)
 
 ### Mid-pipeline adjustments
 The user can interrupt at any phase to redirect. If they do:
@@ -402,6 +510,9 @@ When saving to files, use this structure:
 
 1. **Parallel execution**: Always spawn independent agents in parallel. Never run sequentially what can run simultaneously.
 2. **Persona fidelity**: Each agent must receive its full persona description. A journalist writes differently than a copywriter — that's the whole point.
-3. **User sovereignty**: The user is the editor-in-chief above all agents. Their word is final. Never auto-advance past the Review Gate.
-4. **Three versions, one choice**: The 3-draft approach isn't about volume — it's about giving the user genuine creative options with distinct voices.
-5. **Constructive review**: Check phase agents critique to improve, not to gatekeep. Specific, actionable, respectful.
+3. **User sovereignty**: The user is the editor-in-chief above all agents. Their word is final. Never auto-advance past ANY gate.
+4. **Files first, then ask**: Every gate saves .md files BEFORE presenting the summary. The user can review the full files at their pace, not just the summary.
+5. **Three versions, one choice**: The 3-draft approach isn't about volume — it's about giving the user genuine creative options with distinct voices.
+6. **Constructive review**: Check phase agents critique to improve, not to gatekeep. Specific, actionable, respectful.
+7. **Author's intent matters**: At Gate 3 (Review), the user can override any reviewer suggestion. The author knows things the reviewers don't — respect that.
+8. **4 gates, not 1**: Direction → Draft Selection → Revision → Final. Each gate is a genuine decision point where the user shapes the output. Don't treat them as rubber stamps.

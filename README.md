@@ -2,6 +2,7 @@
   <img src="https://img.shields.io/badge/Claude_Code-Skill-blueviolet?style=for-the-badge&logo=anthropic" alt="Claude Code Skill" />
   <img src="https://img.shields.io/badge/Agents-7_Specialists-orange?style=for-the-badge" alt="7 Agents" />
   <img src="https://img.shields.io/badge/Drafts-3_Versions-green?style=for-the-badge" alt="3 Drafts" />
+  <img src="https://img.shields.io/badge/Gates-4_HITL-red?style=for-the-badge" alt="4 Human-in-the-Loop Gates" />
   <img src="https://img.shields.io/badge/Languages-EN_KO_JP-blue?style=for-the-badge" alt="Multilingual" />
 </p>
 
@@ -66,6 +67,11 @@ claude install-skill ai-writers-room/ai-writers-room.skill
 
 ## 🔄 작동 방식
 
+### 4 Human-in-the-Loop Gates
+
+AI가 자동으로 돌아가되, **4개의 체크포인트에서 반드시 사용자가 결정**합니다.
+각 게이트에서 `.md` 파일을 먼저 저장하고, 사용자가 파일을 검토한 후 다음으로 진행합니다.
+
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                    AI Writers Room                        │
@@ -77,7 +83,9 @@ claude install-skill ai-writers-room/ai-writers-room.skill
 │                      ↓                                   │
 │  Phase 2: DESIGN     구조 설계 → 구성안                   │
 │                      ↓                                   │
-│  Phase 3: GATE    ✋ 사용자 승인                          │
+│  🚦 GATE 1: 방향 승인                                     │
+│  📄 direction-brief.md + outline.md 저장                  │
+│  "이 방향이 맞나요? 톤/앵글 조정할 부분?"                   │
 │                      ↓                                   │
 │  Phase 4: DO         3명 병렬 집필                        │
 │  ┌────────┐ ┌────────┐ ┌────────┐                       │
@@ -85,23 +93,44 @@ claude install-skill ai-writers-room/ai-writers-room.skill
 │  │ 위트풀 │ │ 서사적 │ │ 팩트형 │  → 3개 초안            │
 │  └────────┘ └────────┘ └────────┘                       │
 │                      ↓                                   │
+│  🚦 GATE 2: 초안 선택                                     │
+│  📄 draft-A.md, draft-B.md, draft-C.md 저장               │
+│  "어떤 안을 발전시킬까요? 믹스할 부분은?"                    │
+│                      ↓                                   │
 │  Phase 5: CHECK      3명 병렬 검수                        │
 │  ┌──────┐ ┌──────┐ ┌──────┐                             │
 │  │팩트  │ │교열  │ │편집  │  → 검수 리포트               │
 │  │체커  │ │팀장  │ │  자  │                              │
 │  └──────┘ └──────┘ └──────┘                             │
 │                      ↓                                   │
+│  🚦 GATE 3: 수정 방향                                     │
+│  📄 review-report.md 저장                                 │
+│  "이 수정에 동의하시나요? 저자 의도로 유지할 부분은?"         │
+│                      ↓                                   │
 │  Phase 6: POLISH     헤드라인 디렉터                      │
 │  ┌──────────────────────┐                               │
 │  │ 제목 9개 + 리드문 3개 │  → 제목/요약                   │
 │  └──────────────────────┘                               │
 │                      ↓                                   │
-│  Phase 7: ACT        비교표 + 최종 추천                   │
+│  🚦 GATE 4: 헤드라인 & 최종 선택                           │
+│  "어떤 제목? 어떤 안? 마지막 수정사항은?"                    │
+│  📄 final.md 저장                                        │
 │  ┌──────────────────────┐                               │
-│  │  ✅ 사용자 최종 선택  │  → 완성 원고                   │
+│  │  ✅ 완성 원고         │                               │
 │  └──────────────────────┘                               │
 └─────────────────────────────────────────────────────────┘
 ```
+
+### Why 4 Gates?
+
+| Gate | 결정사항 | 저장 파일 |
+|------|---------|----------|
+| 🚦 **Gate 1** | 방향, 톤, 구조 승인 | `direction-brief.md`, `outline.md` |
+| 🚦 **Gate 2** | 3개 초안 중 발전시킬 안 선택 | `draft-A.md`, `draft-B.md`, `draft-C.md` |
+| 🚦 **Gate 3** | 검수 결과 반영 여부, 저자 의도 보호 | `review-report.md` |
+| 🚦 **Gate 4** | 최종 헤드라인 + 원고 확정 | `final.md` |
+
+> 💡 **파일 먼저, 질문은 그 다음.** 모든 게이트에서 `.md` 파일을 먼저 저장하므로, IDE에서 직접 열어보고 판단할 수 있습니다.
 
 ---
 
