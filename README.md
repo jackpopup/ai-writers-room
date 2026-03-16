@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Claude_Code-Skill-blueviolet?style=for-the-badge&logo=anthropic" alt="Claude Code Skill" />
-  <img src="https://img.shields.io/badge/Agents-7_Specialists-orange?style=for-the-badge" alt="7 Agents" />
+  <img src="https://img.shields.io/badge/Agents-12_Specialists-orange?style=for-the-badge" alt="12 Agents" />
   <img src="https://img.shields.io/badge/Drafts-3_Versions-green?style=for-the-badge" alt="3 Drafts" />
   <img src="https://img.shields.io/badge/Gates-4_HITL-red?style=for-the-badge" alt="4 Human-in-the-Loop Gates" />
   <img src="https://img.shields.io/badge/Languages-EN_KO_JP-blue?style=for-the-badge" alt="Multilingual" />
@@ -9,8 +9,9 @@
 <h1 align="center">AI Writers Room</h1>
 
 <p align="center">
-  <strong>7명의 AI 전문가가 협업하는 글쓰기 스킬 for Claude Code</strong><br/>
-  기자 · 편집자 · 카피라이터 · PD · 팩트체커 · 교열 · 헤드라인 디렉터
+  <strong>12명의 AI 전문가가 협업하는 글쓰기 + 강의 제작 스킬 for Claude Code</strong><br/>
+  <b>글쓰기팀:</b> 기자 · 편집자 · 카피라이터 · PD · 팩트체커 · 교열 · 헤드라인 디렉터<br/>
+  <b>강의팀:</b> 1타 강사 · 커리큘럼 기획자 · 치프 편집자 · EN/JP 번역가
 </p>
 
 <p align="center">
@@ -25,12 +26,12 @@
 
 ## What is this?
 
-**AI Writers Room**은 Claude Code용 스킬(Skill)입니다. 설치하면 글을 쓸 때 7명의 전문가 AI가 병렬로 협업하는 뉴스룸 시스템이 자동으로 작동합니다.
+**AI Writers Room**은 Claude Code용 스킬(Skill)입니다. 설치하면 **글쓰기**와 **강의 제작** 두 가지 파이프라인이 자동으로 작동합니다.
 
+### 글쓰기 모드
 ```
 "바이브코딩이 소프트웨어 산업을 어떻게 바꾸고 있는지 블로그 써줘"
 ```
-
 이 한 줄로:
 - 4명이 기획 회의 → 방향 합의
 - 3가지 톤으로 동시 집필 (위트 / 서사 / 팩트)
@@ -38,7 +39,18 @@
 - 헤드라인 디렉터가 제목 9개 제안
 - 비교표와 함께 최종 추천
 
-**단순히 "글 잘 쓰는 AI"가 아니라, "글 잘 만드는 시스템"입니다.**
+### 강의 제작 모드
+```
+"Claude Code 보안 설정 유튜브 강의 만들어줘"
+```
+이 한 줄로:
+- 1타 강사 + 기획자 + 편집자 3인이 기획
+- 슬라이드별 발화문 + 데모 시나리오 포함 스크립트
+- 커리큘럼 기획자의 전문 검수 (난이도, 흐름, 이탈 포인트)
+- 외주용 영상 편집 가이드 자동 생성
+- PPT 프롬프트 + TTS 스크립트 (KO/EN/JP)
+
+**단순히 "글 잘 쓰는 AI"가 아니라, "콘텐츠를 잘 만드는 시스템"입니다.**
 
 ---
 
@@ -191,6 +203,74 @@ Quick Mode는 서브에이전트 없이 1개 초안을 바로 작성하되, 스�
 | 📝 **교열팀장** | 문법, 맞춤법, 문체 일관성 | Check |
 | 🎯 **헤드라인 디렉터** | 제목, 리드문, 리듬감 | Polish |
 | 🎨 **풍자 일러스트레이터** | 시각적 은유, AI 이미지 프롬프트 | On Request |
+
+### 🎓 강의 제작팀
+
+| 역할 | 전문 분야 | 활약 단계 |
+|------|----------|----------|
+| 🎤 **1타 강사** | 바이브코딩/AI 강의, 비유와 실습 설계 | Plan, Do |
+| 📋 **커리큘럼 기획자** | 학습 목표, 난이도 곡선, 청중 분석 | Plan, Check |
+| 🎬 **치프 편집자** | 컷 구성, 자막, 그래픽, 편집 가이드 | Plan, Post |
+| 🌐 **IT 번역가 (EN)** | 영어 TTS 스크립트, IT 용어 현지화 | Localize |
+| 🌐 **IT 번역가 (JP)** | 일본어 TTS 스크립트, 문화적 맥락 치환 | Localize |
+
+### 강의 파이프라인
+
+```
+┌───────────────────────────────────────────────────────┐
+│                 Lecture Production                      │
+│                                                        │
+│  Phase 1: PLAN        3명 병렬 기획                     │
+│  ┌──────┐ ┌──────┐ ┌──────┐                           │
+│  │1타강사│ │기획자│ │편집자│  → 강의기획서               │
+│  └──────┘ └──────┘ └──────┘                           │
+│                     ↓                                  │
+│  🚦 GATE 1: 방향 승인                                   │
+│  📄 강의기획서.md 저장                                   │
+│  "이 방향이 맞나요? 구성/난이도 조정할 부분?"              │
+│                     ↓                                  │
+│  Phase 2: DO        1타 강사 집필                       │
+│  ┌────────────────────────┐                           │
+│  │ 강의 스크립트 (발화문    │                           │
+│  │ + 슬라이드 + 데모)      │  → 강의스크립트             │
+│  └────────────────────────┘                           │
+│                     ↓                                  │
+│  Phase 3: CHECK     기획자 검수                         │
+│  ┌────────────────────────┐                           │
+│  │ 학습목표/흐름/난이도    │  → 검수리포트               │
+│  │ /이탈포인트 점검        │                            │
+│  └────────────────────────┘                           │
+│                     ↓                                  │
+│  Phase 4: POST      치프 편집자                        │
+│  ┌────────────────────────┐                           │
+│  │ 컷 리스트, 자막, BGM,   │  → 영상편집가이드           │
+│  │ 썸네일, 인트로/아웃트로  │                            │
+│  └────────────────────────┘                           │
+│                     ↓                                  │
+│  🚦 GATE 2: 최종 승인                                   │
+│  📄 모든 산출물 저장                                     │
+│  "승인? TTS/PPT 프롬프트 필요?"                          │
+│                     ↓                                  │
+│  Phase 5: EXTRAS (선택)                                │
+│  ┌──────┐ ┌──────┐ ┌──────┐                           │
+│  │ TTS  │ │ PPT  │ │EN/JP │  → 추가 산출물             │
+│  │스크립트│ │프롬프트│ │번역  │                           │
+│  └──────┘ └──────┘ └──────┘                           │
+└───────────────────────────────────────────────────────┘
+```
+
+### 강의 산출물
+
+| 파일 | 설명 | 단계 |
+|------|------|------|
+| `강의기획서.md` | 주제, 구성, 타깃, 러닝타임 | Plan |
+| `강의스크립트.md` | 발화문 + 슬라이드 노트 + 데모 | Do |
+| `검수리포트.md` | 학습목표 달성도, 흐름, 난이도 점검 | Check |
+| `영상편집가이드.md` | 외주 편집자용 가이드 | Post |
+| `genspark-ppt-prompt.md` | Remotion 애니메이션용 PPT 프롬프트 | Extras |
+| `TTS-스크립트-final.md` | 한국어 TTS 녹음용 | Extras |
+| `TTS-EN-script.md` | 영문 TTS 녹음용 | Extras |
+| `TTS-JP-script.md` | 일본어 TTS 녹음용 | Extras |
 
 ---
 

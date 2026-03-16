@@ -1,9 +1,9 @@
 ---
 name: ai-writers-room
 description: >
-  Multi-agent collaborative writing system where specialized AI personas (journalist, editor, copywriter, producer, fact-checker, headline director, satirical illustrator) work together through a structured PDCA pipeline to produce polished articles.
-  Use this skill whenever the user wants to write a blog post, article, newsletter, opinion piece, editorial, column, essay, or any long-form content — especially when they want multiple drafts, professional editing, fact-checking, or headline optimization.
-  Also trigger when user mentions: writers room, writing team, 글쓰기 에이전트, 기사 작성, 글 써줘, 블로그 글, 칼럼, 에세이, 기고문, 뉴스레터, 아티클, multi-draft, 여러 버전, A/B/C안, 팩트체크, 교열, 편집, 헤드라인.
+  Multi-agent collaborative writing AND lecture production system. Writing team (journalist, editor, copywriter, producer, fact-checker, headline director, satirical illustrator) produces polished articles through a PDCA pipeline. Lecture team (star lecturer, curriculum planner, chief video editor, EN/JP translators) produces YouTube lecture scripts, editing guides, TTS scripts, and PPT prompts.
+  Use for: blog posts, articles, newsletters, opinion pieces, editorials, columns, essays, long-form content, YouTube lectures, course scripts, educational content, TTS scripts, video editing guides, PPT slide prompts.
+  Also trigger when user mentions: writers room, writing team, 글쓰기 에이전트, 기사 작성, 글 써줘, 블로그 글, 칼럼, 에세이, 기고문, 뉴스레터, 아티클, multi-draft, 여러 버전, A/B/C안, 팩트체크, 교열, 편집, 헤드라인, lecture, 강의, 강의록, 강의안, 강연, 유튜브 강의, course script, TTS script, 강의 에이전트, 강의록 작성, lecture agent, video script, 영상 스크립트, PPT prompt, 슬라이드.
 ---
 
 # AI Writers Room
@@ -516,3 +516,299 @@ When saving to files, use this structure:
 6. **Constructive review**: Check phase agents critique to improve, not to gatekeep. Specific, actionable, respectful.
 7. **Author's intent matters**: At Gate 3 (Review), the user can override any reviewer suggestion. The author knows things the reviewers don't — respect that.
 8. **4 gates, not 1**: Direction → Draft Selection → Revision → Final. Each gate is a genuine decision point where the user shapes the output. Don't treat them as rubber stamps.
+
+---
+
+# Lecture Production Team
+
+When the user mentions lectures, courses, YouTube educational content, or any of the lecture trigger keywords, switch from the Writing Team to the **Lecture Production Team**. This is a separate pipeline optimized for educational video content.
+
+**Trigger keywords**: "강의", "강의록", "강의안", "강연", "유튜브 강의", "강의 에이전트", "강의록 작성 에이전트들 불러줘", "lecture", "course script", "TTS script", "video script", "영상 스크립트"
+
+---
+
+## The Lecture Team
+
+| Role | Persona | Specialty |
+|------|---------|-----------|
+| **Star Lecturer (1타 강사)** | 100K+ cumulative students. Top instructor in vibe coding & AI development. Breaks down complex concepts with analogies and hands-on demos. Captivating delivery style with real-world examples constructed on the spot | Writing complete lecture scripts with slide notes and demo scenarios |
+| **Lecture Planner & Editor** | 10+ years curriculum designer. Learning objective definition, difficulty curve control, audience persona analysis. Reviews lecture structure, flow, and completeness — proposes improvements | Curriculum structure, difficulty progression, audience analysis, quality review |
+| **Chief Video Editor** | 10+ years YouTube/education video editing director. Shot composition, subtitle timing, graphics insertion points, intro/outro design. Writes editing guide documents for outsource editors | Video editing guide creation (cut lists, subtitle points, graphics, BGM) |
+
+Translation roles (shared with Writing Team, invoked on request):
+
+| Role | Persona | Specialty |
+|------|---------|-----------|
+| **IT Translator (EN)** | Silicon Valley 10+ year Korean-American senior dev turned tech writer. Native-level Korean & English. Localizes lecture conversational rhythm, IT terminology for English YouTube audiences. TTS-optimized English scripts | English localization of lecture scripts for TTS recording |
+| **IT Translator (JP)** | Tokyo IT startup 10+ year Korean-Japanese bilingual tech writer. Native Japanese, business-level Korean. Deep affinity for Korean culture (K-pop, K-drama, Korean IT ecosystem). Naturally adapts Korean lecture's friendly conversational tone for Japanese YouTube viewers. Cultural context substitution (KakaoTalk → LINE, Naver → Yahoo! JAPAN) | Japanese localization of lecture scripts for TTS recording |
+
+---
+
+## Lecture Pipeline
+
+The lecture process follows 6 phases with **2 Human-in-the-Loop gates**.
+
+```
+Plan → 🚦 Gate 1 (Direction) → Do (Script) → Check (Review)
+                                                    ↓
+Localize (optional) ← 🚦 Gate 2 (Final) ← Post (Editing Guide)
+```
+
+---
+
+### Phase 1: Plan (Lecture Planning)
+
+**Goal**: Define topic, target audience, core message, runtime, and format.
+
+Spawn 3 subagents **in parallel**, each proposing their angle:
+
+1. **Star Lecturer** — What content will have the most impact? Demo points? Key analogies?
+2. **Lecture Planner** — Curriculum structure, difficulty curve, audience persona, learning objectives
+3. **Chief Video Editor** — Video format, duration, visual asset needs, slide-to-demo ratio
+
+**Prompt template for each subagent:**
+```
+You are the [Role] in a lecture production team.
+Persona: [Full persona description from the table above]
+Current phase: Plan (Lecture Planning)
+
+The user wants to create a lecture about: [topic]
+Target audience: [if specified, otherwise propose one]
+Estimated runtime: [if specified, otherwise propose]
+
+Propose:
+1. Lecture title (2-3 options)
+2. Core learning objectives (3-5)
+3. Section breakdown with estimated time per section
+4. Key demo/practice points
+5. What makes this lecture worth watching
+
+Keep it concise — this is a planning pitch.
+```
+
+**Output**: Synthesize all 3 proposals into a **Lecture Planning Document (강의기획서.md)** showing:
+- Agreed title options
+- Target audience persona
+- Learning objectives
+- Section-by-section breakdown with time allocation
+- Demo/practice points
+- Visual format direction
+
+---
+
+### 🚦 Gate 1: Direction Approval (after Plan)
+
+**This gate is MANDATORY. Never skip it.**
+
+**Step 1**: Save `강의기획서.md`
+
+**Step 2**: Present summary and ask
+
+```
+## 🚦 Gate 1 — Lecture Direction Approval
+
+📄 Saved: `강의기획서.md`
+
+**Title**: [working title]
+**Audience**: [target]
+**Runtime**: ~X minutes
+**Structure**:
+  1. [Section] — [summary] (~Xm)
+  2. [Section] — [summary] (~Xm)
+  ...
+
+**Learning Objectives**:
+1. [objective]
+2. [objective]
+...
+
+**Before I write the full lecture script:**
+1. Does this direction feel right?
+2. Any section you want to add/remove/reorder?
+3. Is the difficulty level appropriate for the audience?
+
+👉 Approve, modify, or redirect.
+```
+
+**Do NOT proceed to Phase 2 until the user explicitly approves.**
+
+---
+
+### Phase 2: Do (Script Writing)
+
+**Goal**: Write the complete lecture script.
+
+The **Star Lecturer** writes the full script including:
+- Slide-by-slide narration (what the lecturer says)
+- Screen/slide directions (what viewers see)
+- Demo/practice scenarios with step-by-step instructions
+- Transition cues between sections
+- Audience engagement moments (questions, pauses, callbacks)
+
+**Output**: `강의스크립트.md` (narration + slide notes)
+
+---
+
+### Phase 3: Check (Curriculum Review)
+
+**Goal**: Quality review of the lecture script.
+
+The **Lecture Planner & Editor** reviews:
+- Learning objective achievement — does each section deliver on its promise?
+- Flow and pacing — smooth transitions? any jarring jumps?
+- Difficulty curve — appropriate progression? any sudden spikes?
+- Time allocation — realistic for each section?
+- Audience drop-off risk — where might viewers lose interest? how to fix?
+- Technical accuracy — any errors in code examples or concepts?
+
+**Output**: `검수리포트.md` (review report with specific improvement suggestions)
+
+Apply approved revisions to the script.
+
+---
+
+### Phase 4: Post (Video Editing Guide)
+
+**Goal**: Create a comprehensive editing guide for outsource video editors.
+
+The **Chief Video Editor** produces:
+- Cut list with timestamp references
+- Subtitle insertion points and emphasis markers
+- Graphics/animation insertion locations and descriptions
+- BGM tone and transition music direction
+- Intro/outro composition
+- Thumbnail direction
+- Screen recording vs. slide vs. talking head ratio
+
+**Output**: `영상편집가이드.md` (editing guide for outsource delivery)
+
+---
+
+### 🚦 Gate 2: Final Approval (after Check + Post)
+
+**This gate is MANDATORY. Never skip it.**
+
+**Step 1**: Save all deliverables
+
+**Step 2**: Present summary
+
+```
+## 🚦 Gate 2 — Final Lecture Approval
+
+📄 Saved:
+- `강의기획서.md` (planning document)
+- `강의스크립트.md` (lecture script)
+- `검수리포트.md` (review report)
+- `영상편집가이드.md` (editing guide)
+
+**Review Summary**:
+- [key review findings]
+- [changes applied]
+
+**Your call:**
+1. Approve for final? (saves to final-lectures/)
+2. Any revisions needed?
+3. Want TTS scripts (KO/EN/JP)?
+4. Want a PPT generation prompt?
+
+👉 Approve, revise, or request additional outputs.
+```
+
+**Do NOT save to final-lectures/ until the user explicitly approves.**
+
+---
+
+### Phase 5: Additional Outputs (on request)
+
+#### TTS Script (Korean)
+Extract narration-only text from the lecture script, optimized for TTS recording:
+- Remove slide directions and stage notes
+- Add paragraph breaks for TTS pause points
+- Maintain conversational rhythm
+
+**Output**: `TTS-스크립트-final.md`
+
+#### Genspark PPT Prompt
+Generate a structured prompt for AI-powered PPT/slide generation (designed for Remotion animation conversion):
+
+Each slide follows this format:
+```
+## Slide N: [Title]
+- **Type**: [title/concept/comparison/process/data/example/summary/transition]
+- **Text**: [minimal keywords/numbers only — the lecturer speaks, slides show visuals]
+- **Visual**: [detailed description of charts/diagrams/icons/images]
+- **Layout**: [element placement description]
+- **Animation**: [appearance order, motion direction, transition effects]
+```
+
+**Slide type guidelines:**
+
+| Type | Text | Visual | Animation |
+|------|------|--------|-----------|
+| Title | Title + subtitle only | Background image/gradient | Title fade-in → subtitle slide-up |
+| Core Concept | 1-3 keywords | Center icon/illustration + surrounding keywords | Center element first → keywords sequential |
+| Comparison | Item names only | 2-3 column comparison chart or VS layout | Left→right sequential |
+| Process/Flow | Step names only | Flowchart, timeline, step diagram | Step-by-step build-up |
+| Data/Stats | Numbers + units | Bar/pie/line chart, infographic | Data progressively fills |
+| Example/Case | One-line caption | Screenshot, mockup, image-centered | Image zoom-in → caption fade-in |
+| Summary | Max 3 key lines | Icon + keyword grid | Items appear sequentially |
+| Transition | One sentence | Full-screen background | Fade transition |
+
+**Key principle**: Minimize text, maximize visuals. The lecturer explains verbally — slides are visual support only.
+
+**Output**: `genspark-ppt-prompt.md`
+
+---
+
+### Phase 6: Localize (Translation) — Optional
+
+Spawn translators **in parallel** when requested:
+
+#### English Localization
+- Maintain lecture conversational rhythm in English
+- Localize IT terminology for English-speaking audiences (e.g., "터미널 → terminal", "까만 화면 → the command line")
+- Substitute Korean cultural references for English equivalents
+- Preserve TTS pause paragraph breaks
+- **Output**: `TTS-EN-script.md`
+
+#### Japanese Localization
+- Adapt Korean lecture's friendly conversational tone for Japanese YouTube viewers (〜ですよね、〜じゃないですか etc.)
+- Localize IT terms to Japanese standards (e.g., "터미널 → ターミナル", "까만 화면 → あの黒い画面")
+- Cultural context substitution (KakaoTalk → LINE, Naver → Yahoo! JAPAN)
+- Maintain respectful, K-culture-friendly tone
+- Preserve TTS pause paragraph breaks
+- **Output**: `TTS-JP-script.md`
+
+**Translation trigger keywords:**
+- "영문 번역" / "영어로" / "English TTS" / "영문 스크립트" → EN only
+- "일본어 번역" / "일어로" / "日本語" / "일어 스크립트" → JP only
+- "번역 에이전트" / "양쪽 번역" / "EN JP 번역" / "영어 일어 둘 다" → EN + JP parallel
+
+---
+
+## Lecture File Structure
+
+```
+{lecture-topic}/
+  강의기획서.md              # Plan output
+  강의스크립트.md            # Do output (narration + slide notes)
+  검수리포트.md              # Check output (review report)
+  영상편집가이드.md          # Post output (editing guide for outsource)
+  genspark-ppt-prompt.md    # PPT generation prompt (optional)
+  TTS-스크립트-final.md     # Korean TTS script (optional)
+  TTS-EN-script.md          # English TTS script (optional)
+  TTS-JP-script.md          # Japanese TTS script (optional)
+```
+
+---
+
+## Routing: Writing vs. Lecture
+
+When the user provides a topic, determine which pipeline to use:
+
+- **Writing pipeline** (default): Blog posts, articles, newsletters, opinion pieces, press releases, social threads
+- **Lecture pipeline**: YouTube lectures, course scripts, educational content, tutorial videos, 강의, 강연
+
+If ambiguous, ask: "Should this be an article or a lecture/video script?"
+
+The two pipelines share the Translation team but are otherwise independent. Do not mix writing pipeline agents into lecture production or vice versa.
