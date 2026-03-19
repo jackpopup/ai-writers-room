@@ -26,7 +26,7 @@
 
 ## What is this?
 
-**AI Writers Room**은 Claude Code용 스킬(Skill)입니다. 설치하면 **글쓰기**와 **강의 제작** 두 가지 파이프라인이 자동으로 작동합니다.
+**AI Writers Room**은 Claude Code용 스킬(Skill)입니다. 설치하면/write 명령어만으로 **글쓰기**와 **강의 제작** 두 가지 파이프라인이 자동으로 작동합니다.
 
 ### 글쓰기 모드
 ```
